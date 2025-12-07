@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import com.team18.dao.DietRecordDAO;
+import com.team18.dao.GoalDAO; // [추가] 목표 DAO
 import com.team18.diet.DietRecord;
+import com.team18.goal.NutritionGoal; // [추가] 목표 DTO
 import com.team18.user.User;
 
 import jakarta.servlet.ServletException;
@@ -18,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 public class DietListServlet extends HttpServlet {
 
     private DietRecordDAO dietDAO = new DietRecordDAO();
+    private GoalDAO goalDAO = new GoalDAO(); // [추가] 목표 DAO 인스턴스
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,11 +36,11 @@ public class DietListServlet extends HttpServlet {
         User loginUser = (User) session.getAttribute("loginUser");
         String userId = loginUser.getUserId();
 
-        // 2. 파라미터 받기
-        String searchDate = request.getParameter("searchDate"); // 예: "2025-12-07"
+        // 2. 파라미터 수신 (검색 날짜, 페이지 번호)
+        String searchDate = request.getParameter("searchDate");
         
         int page = 1;
-        int pageSize = 10; // 한 페이지에 10개
+        int pageSize = 10;
         if (request.getParameter("page") != null) {
             try {
                 page = Integer.parseInt(request.getParameter("page"));
@@ -46,21 +49,46 @@ public class DietListServlet extends HttpServlet {
             }
         }
 
-        // 3. 데이터 조회
+        // 3. 목록 조회 (검색어 + 페이징)
         int totalCount = dietDAO.countDietRecords(userId, searchDate);
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-        
         List<DietRecord> list = dietDAO.findDietRecords(userId, searchDate, page, pageSize);
 
-        // 4. 통계 데이터 조회
+        // 4. 통계 데이터 조회 (기존)
         double weeklyProtein = dietDAO.getWeeklyProtein(userId);
         double monthlyKcal = dietDAO.getMonthlyTotalKcal(userId);
         double weeklyAvgKcal = dietDAO.getWeeklyAvgKcal(userId);
         DietRecord avgNutrients = dietDAO.getNutrientAverages(userId);
+        
+        
+        // (1) 최신 영양 목표 가져오기
+        NutritionGoal myGoal = goalDAO.findRecentGoal(userId);
+        
+        // (2) 오늘 섭취한 총 영양소 계산 (DB에서 '오늘' 날짜로 다시 조회)
+        List<DietRecord> todayList = dietDAO.getTodayDiet(userId);
+        double todayKcal = 0, todayCarb = 0, todayProtein = 0, todayFat = 0;
+        
+        if (todayList != null) {
+            for (DietRecord dr : todayList) {
+                todayKcal += dr.getTotalKcal();
+                todayCarb += dr.getTotalCarbs();
+                todayProtein += dr.getTotalProtein();
+                todayFat += dr.getTotalFat();
+            }
+        }
+        
+        // (3) 달성도(%) 계산
+        // 0으로 나누는 것 방지랑 최대 100% 넘을 때 UI 처리는 JSP에서 함
+        request.setAttribute("myGoal", myGoal);
+        request.setAttribute("todayKcal", todayKcal);
+        request.setAttribute("todayCarb", todayCarb);
+        request.setAttribute("todayProtein", todayProtein);
+        request.setAttribute("todayFat", todayFat);
 
-        // 5. JSP로 전달
+
+        // 6. JSP로 전달
         request.setAttribute("dietList", list);
-        request.setAttribute("searchDate", searchDate); // 검색어 유지용
+        request.setAttribute("searchDate", searchDate);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
 
