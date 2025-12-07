@@ -24,7 +24,6 @@
     <h2>📅 새 식단 기록</h2>
     <form action="${pageContext.request.contextPath}/diet/add" method="post">
         <table>
-            <tr><th>음식명</th><td><input type="text" name="diet_item" required></td></tr>
             <tr><th>칼로리 (kcal)</th><td><input type="number" step="0.01" name="total_kcal" required></td></tr>
             <tr><th>탄수화물 (g)</th><td><input type="number" step="0.01" name="total_carbs" required></td></tr>
             <tr><th>단백질 (g)</th><td><input type="number" step="0.01" name="total_protein" required></td></tr>

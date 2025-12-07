@@ -7,12 +7,14 @@
     String filterName = (String) request.getAttribute("filterName");
     if (filterName == null) filterName = "전체 레시피 목록";
     
+    // 페이징 정보 가져오기
     Integer currentPageObj = (Integer) request.getAttribute("currentPage");
     int currentPage = (currentPageObj != null) ? currentPageObj : 1;
     
     Integer totalPagesObj = (Integer) request.getAttribute("totalPages");
     int totalPages = (totalPagesObj != null) ? totalPagesObj : 0;
     
+    // 필터값 유지
     String currentFilter = (String) request.getAttribute("currentFilter");
     boolean showPagination = (currentFilter == null || currentFilter.isEmpty()) && totalPages > 1;
 %>    
@@ -31,39 +33,30 @@
     .filter-bar a:hover { background-color: #2ecc71; color: white; border-color: #2ecc71; }
     
     h3 { color: #27ae60; margin-bottom: 15px; }
-    table { width: 100%; border-collapse: collapse; table-layout: fixed; } /* 고정 너비 */
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
     th, td { border: 1px solid #ddd; padding: 12px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     th { background-color: #2ecc71; color: white; }
     tr:hover { background-color: #f1f1f1; }
     
     a.recipe-link { color: #2980b9; text-decoration: none; font-weight: bold; }
     a.recipe-link:hover { text-decoration: underline; }
-    
-    .home-link { display: block; text-align: center; margin-top: 20px; color: #555; text-decoration: none; }
 
+    /* 페이지네이션 스타일 */
     .pagination { text-align: center; margin-top: 20px; }
-    .pagination a {
-        display: inline-block;
-        padding: 8px 12px;
-        margin: 0 2px;
-        border: 1px solid #ddd;
-        color: #333;
-        text-decoration: none;
-        border-radius: 4px;
-        transition: 0.3s;
-    }
+    .pagination a { display: inline-block; padding: 8px 12px; margin: 0 2px; border: 1px solid #ddd; color: #333; text-decoration: none; border-radius: 4px; transition: 0.3s; }
     .pagination a:hover { background-color: #eee; }
-    .pagination a.active {
-        background-color: #2ecc71;
-        color: white;
-        border-color: #2ecc71;
-    }
+    .pagination a.active { background-color: #2ecc71; color: white; border-color: #2ecc71; }
+    
+    /* [수정] 식단 관리와 동일한 하단 메뉴 버튼 스타일 */
+    .nav-links { text-align: center; margin-top: 30px; }
+    .nav-links a { margin: 0 10px; color: #333; text-decoration: none; font-weight: bold; font-size: 1.05em; transition: 0.3s; }
+    .nav-links a:hover { color: #2ecc71; }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>👨‍🍳 레시피 관리 / 추천</h2>
+    <h2>👨‍🍳 레시피 추천</h2>
 
     <div class="filter-bar">
         <span>💡 추천 메뉴: </span>
@@ -112,7 +105,6 @@
         <% 
            int startPage = Math.max(1, currentPage - 5);
            int endPage = Math.min(totalPages, currentPage + 5);
-           
            for (int i = startPage; i <= endPage; i++) { 
         %>
             <a href="?page=<%= i %>" class="<%= (i == currentPage) ? "active" : "" %>"><%= i %></a>
@@ -124,7 +116,9 @@
     </div>
     <% } %>
 
-    <a href="<%= request.getContextPath() %>/main.jsp" class="home-link">🏠 메인 메뉴로 돌아가기</a>
+    <div class="nav-links">
+        <a href="<%= request.getContextPath() %>/main.jsp">🏠 메인 메뉴로</a>
+    </div>
 </div>
 
 </body>

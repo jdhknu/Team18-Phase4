@@ -79,7 +79,7 @@
 
     <table>
         <tr>
-            <th style="width: 8%;">번호</th>
+            <th style="width: 8%;">코드</th>
             <th style="width: 25%;">재료명</th>
             <th style="width: 15%;">수량</th>
             <th style="width: 20%;">유통기한</th>

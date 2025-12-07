@@ -35,7 +35,7 @@
 
     <ul class="menu-list">
         <li><a href="diet/list">🍽️ 식단 관리</a></li>
-        <li><a href="recipe/list">👨‍🍳 레시피 관리 / 추천</a></li>
+        <li><a href="recipe/list">👨‍🍳 레시피 추천</a></li>
         <li><a href="pantry/list">🥦 재료 관리 (내 냉장고)</a></li>
         <li><a href="goal/view">🎯 영양 목표 관리</a></li>
         <li><a href="user/mypage">👤 회원 정보 관리</a></li>

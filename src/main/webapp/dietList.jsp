@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.team18.diet.DietRecord" %>
 <%
-    // 리스트 및 페이징 정보
+    // 리스트 및 페이징 적용
     java.util.List<DietRecord> list = (java.util.List<DietRecord>) request.getAttribute("dietList");
     
     Integer currentPageObj = (Integer) request.getAttribute("currentPage");
@@ -31,23 +31,27 @@
     .search-bar { background-color: #f9f9f9; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; border: 1px solid #ddd; }
     .search-bar form { display: flex; justify-content: center; align-items: center; gap: 10px; }
     .search-bar input[type="date"] { width: auto; padding: 8px; }
-    .btn-search { background-color: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
-    .btn-reset { background-color: #95a5a6; color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; font-size: 0.9em; display: inline-block; }
+    .btn-search { background-color: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+    .btn-search:hover { background-color: #2980b9; }
+    .btn-reset { background-color: #95a5a6; color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; font-size: 0.9em; display: inline-block; transition: 0.3s; }
+    .btn-reset:hover { background-color: #7f8c8d; }
 
     table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95em; }
     th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
     th { background-color: #2ecc71; color: white; }
     tr:nth-child(even) { background-color: #f9f9f9; }
     
-    a.btn-del { display: inline-block; padding: 5px 10px; background-color: #e74c3c; color: white; text-decoration: none; border-radius: 4px; font-size: 0.8em; }
+    a.btn-del { display: inline-block; padding: 5px 10px; background-color: #e74c3c; color: white; text-decoration: none; border-radius: 4px; font-size: 0.8em; transition: 0.3s; }
+    a.btn-del:hover { background-color: #c0392b; }
     
     .pagination { text-align: center; margin-top: 20px; }
     .pagination a { display: inline-block; padding: 8px 12px; margin: 0 2px; border: 1px solid #ddd; color: #333; text-decoration: none; border-radius: 4px; transition: 0.3s; }
     .pagination a:hover { background-color: #eee; }
     .pagination a.active { background-color: #2ecc71; color: white; border-color: #2ecc71; }
     
+    /* [수정] 하단 링크에 transition: 0.3s 추가하여 부드러운 전환 효과 적용 */
     .nav-links { text-align: center; margin-top: 20px; }
-    .nav-links a { margin: 0 10px; color: #333; text-decoration: none; font-weight: bold; }
+    .nav-links a { margin: 0 10px; color: #333; text-decoration: none; font-weight: bold; transition: 0.3s; }
     .nav-links a:hover { color: #2ecc71; }
 </style>
 </head>

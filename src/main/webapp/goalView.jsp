@@ -20,8 +20,11 @@
     input[type="number"] { width: 100px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; }
     button { background-color: #2ecc71; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1em; width: 100%; margin-top: 10px; }
     button:hover { background-color: #27ae60; }
-    a { text-decoration: none; color: #7f8c8d; display: block; text-align: center; margin-top: 15px; }
-    a:hover { color: #2c3e50; }
+    
+    /* [수정] 식단 관리와 동일한 하단 메뉴 버튼 스타일 */
+    .nav-links { text-align: center; margin-top: 30px; }
+    .nav-links a { margin: 0 10px; color: #333; text-decoration: none; font-weight: bold; font-size: 1.05em; transition: 0.3s; }
+    .nav-links a:hover { color: #2ecc71; }
 </style>
 </head>
 <body>
@@ -68,7 +71,9 @@
         <button type="submit">새 목표 저장</button>
     </form>
     
-    <a href="<%= request.getContextPath() %>/main.jsp">메인 메뉴로 돌아가기</a>
+    <div class="nav-links">
+        <a href="<%= request.getContextPath() %>/main.jsp">🏠 메인 메뉴로</a>
+    </div>
 </div>
 
 </body>
