@@ -7,7 +7,7 @@
 <title>로그인 - 식단 관리 시스템</title>
 <style>
     body { font-family: 'Noto Sans KR', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-    .login-container { background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+    .login-container { background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 400px; text-align: center; }
     h2 { color: #2ecc71; margin-bottom: 30px; }
     input[type="text"], input[type="password"] { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
     button { width: 100%; padding: 12px; background-color: #2ecc71; color: white; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; margin-top: 10px; transition: background 0.3s; }
@@ -21,7 +21,7 @@
 <body>
 
 <div class="login-container">
-    <h2>🥗 로그인</h2>
+    <h2>🥗 식단 관리 및 레시피 추천 시스템</h2>
 
     <% String error = (String) request.getAttribute("error"); %>
     <% if (error != null) { %>
@@ -35,7 +35,7 @@
     </form>
 
     <div class="links">
-        <a href="register.jsp">회원가입 하기</a>
+        <a href="register.jsp">회원가입</a>
     </div>
 </div>
 <%
