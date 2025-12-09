@@ -1,0 +1,7 @@
+Team18 Term Project Phase 4
+
+1. Repository Link:
+https://github.com/jdhknu/Team18-Phase4.git
+
+2. Contributors Graph Link:
+https://github.com/jdhknu/Team18-Phase4/graphs/contributors
